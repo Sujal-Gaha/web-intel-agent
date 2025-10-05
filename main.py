@@ -3,9 +3,10 @@ from ai_agent.ai_agent import AIAgent
 import asyncio
 
 OUTPUT_FILE = "./data/output.md"
+DEFAULT_URL = "https://www.sujalgahamagar.com.np"
 
 async def main():
-    url = input("Enter the website URL: ") or "https://www.sujalgahamagar.com.np"
+    url = input("Enter the website URL: ") or DEFAULT_URL
     
     crawler = Crawler(url, max_depth=100)
     content = await crawler.crawl(url)
@@ -17,7 +18,6 @@ async def main():
 
     agent = AIAgent(file_path=OUTPUT_FILE)
     agent.process()
-
 
 if __name__ == "__main__":
     asyncio.run(main())
