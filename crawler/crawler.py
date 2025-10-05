@@ -12,10 +12,10 @@ class Crawler:
         )
         self.url = url
         
-    async def crawl(self, url: str):
+    async def crawl(self):
         all_content = ""
         async with AsyncWebCrawler() as crawler:
-            results = await crawler.arun(url, config=self.config)
+            results = await crawler.arun(self.url, config=self.config)
 
             for result in results:
                 if hasattr(result, 'markdown') and result.markdown:
