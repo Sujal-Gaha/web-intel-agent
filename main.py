@@ -1,6 +1,6 @@
 import argparse
 import asyncio
-from ai_agent import run_ai_agent
+from ai_agent_v0 import run_ai_agent
 from crawler import run_crawler
 
 CRAWLER_OUTPUT_FILE = "data/output.md"
