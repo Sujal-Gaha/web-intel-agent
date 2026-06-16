@@ -1,16 +1,15 @@
-"""File-based storage implementation."""
-
 import json
-from typing import Any, Dict, cast
-from urllib.parse import ParseResult
-import aiofiles
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
+from typing import Any, cast
+from urllib.parse import ParseResult
 
-from web_intel.storage.base import BaseStorage
+import aiofiles
+
+from web_intel.core.config import Config
 from web_intel.models.crawl_result import CrawlResult, PageResult
 from web_intel.models.session import Session
-from web_intel.core.config import Config
+from web_intel.storage.base import BaseStorage
 from web_intel.utils.exceptions import StorageError
 
 
@@ -71,16 +70,16 @@ class FileStorage(BaseStorage):
         """Save result as markdown file."""
         filepath: Path = self.crawls_path / f"{result_id}.md"
 
-        content: str = f"""# Crawl Result: {result.source_url}
+        content = f"""
+            # Crawl Result: {result.source_url}
 
-**Crawled at:** {result.started_at.isoformat()}
-**Total pages:** {result.total_pages}
-**Success rate:** {result.success_rate:.1%}
+            **Crawled at:** {result.started_at.isoformat()}
+            **Total pages:** {result.total_pages}
+            **Success rate:** {result.success_rate:.1%}
+            ---
 
----
-
-{result.combined_content}
-"""
+            {result.combined_content}
+        """
 
         async with aiofiles.open(filepath, "w", encoding="utf-8") as f:
             await f.write(content)
@@ -89,7 +88,7 @@ class FileStorage(BaseStorage):
         """Save result as JSON file."""
         filepath: Path = self.crawls_path / f"{result_id}.json"
 
-        data: dict[str, Any] = {
+        data = {
             "source_url": result.source_url,
             "started_at": result.started_at.isoformat(),
             "completed_at": (
@@ -182,7 +181,7 @@ class FileStorage(BaseStorage):
         filepath: Path = self.sessions_path / f"{session.session_id}.json"
 
         try:
-            data: Dict[str, Any] = session.to_dict()
+            data: dict[str, Any] = session.to_dict()
             async with aiofiles.open(filepath, "w", encoding="utf-8") as f:
                 await f.write(json.dumps(data, indent=2))
         except Exception as e:

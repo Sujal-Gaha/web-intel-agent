@@ -1,11 +1,8 @@
-"""Main CLI application using Typer."""
-
 import typer
 from typer import Typer
 
 from web_intel.cli.commands import crawl, query
 from web_intel.cli.ui.console import console
-from web_intel.core.config import Config
 
 app: Typer = typer.Typer(
     name="wi",

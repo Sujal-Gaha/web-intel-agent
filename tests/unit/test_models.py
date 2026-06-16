@@ -1,11 +1,12 @@
 """Unit tests for data models."""
 
 from typing import Any, Dict, List
+
 import pytest
 
 from web_intel.models.crawl_result import CrawlResult, PageResult
-from web_intel.models.session import Session
 from web_intel.models.query import QueryContext, QueryResult
+from web_intel.models.session import Session
 
 
 class TestPageResult:

@@ -1,6 +1,3 @@
-"""Custom exceptions."""
-
-
 class WebIntelError(Exception):
     """Base exception for all web-intel errors."""
 

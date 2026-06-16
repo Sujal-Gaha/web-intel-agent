@@ -1,19 +1,18 @@
-"""Query commands."""
-
-import typer
 import asyncio
 from pathlib import Path
 from typing import Optional
+
+import typer
 from typer import Typer
 
 from web_intel.agents.base import BaseAgent
+from web_intel.agents.factory import AgentFactory
 from web_intel.cli.ui.console import console
 from web_intel.core.config import Config
-from web_intel.agents.factory import AgentFactory
+from web_intel.core.orchestrator import AgentOrchestrator
 from web_intel.models.query import QueryResult
 from web_intel.storage.base import BaseStorage
 from web_intel.storage.factory import StorageFactory
-from web_intel.core.orchestrator import AgentOrchestrator
 from web_intel.utils.exceptions import AgentError, StorageError
 
 app: Typer = typer.Typer(help="🤖 AI query commands")
@@ -70,7 +69,7 @@ async def _query_ask_async(
             config.update_model(model)
 
         # Show header
-        console.rule(f"[bold blue]Question")
+        console.rule("[bold blue]Question")
         console.print(f"[cyan]{question}[/cyan]\n")
 
         # Initialize components
@@ -157,10 +156,10 @@ async def _query_interactive_async(source: Path, session: Optional[str]) -> None
 
         session = f"session_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
-    console.rule(f"[bold blue]Interactive Mode")
+    console.rule("[bold blue]Interactive Mode")
     console.print(f"[dim]Source:[/dim] {source}")
     console.print(f"[dim]Session:[/dim] {session}")
-    console.print(f"[dim]Commands:[/dim] 'exit' or 'quit' to stop\n")
+    console.print("[dim]Commands:[/dim] 'exit' or 'quit' to stop\n")
 
     # Initialize components
     config: Config = Config()

@@ -1,12 +1,11 @@
-"""Ollama agent implementation."""
-
 import json
 from typing import Any, AsyncIterator
+
 import aiohttp
 
 from web_intel.agents.base import BaseAgent
-from web_intel.models.query import QueryContext, QueryResult
 from web_intel.core.config import Config
+from web_intel.models.query import QueryContext, QueryResult
 from web_intel.utils.exceptions import AgentError
 
 

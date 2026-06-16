@@ -1,12 +1,10 @@
-"""Orchestrator for coordinating agents and storage."""
-
 from pathlib import Path
-from typing import Any, Optional, AsyncIterator
+from typing import Any, AsyncIterator, Optional
 
 from web_intel.agents.base import BaseAgent
-from web_intel.storage.base import BaseStorage
 from web_intel.models.query import QueryContext, QueryResult
 from web_intel.models.session import Session
+from web_intel.storage.base import BaseStorage
 from web_intel.utils.exceptions import AgentError, StorageError
 
 

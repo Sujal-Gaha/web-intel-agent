@@ -1,13 +1,6 @@
-"""Data models for crawl results."""
-
 from dataclasses import dataclass, field
-from typing import List, Dict, Any, Optional
 from datetime import datetime
-
-"""Data models for crawl results."""
-from dataclasses import dataclass, field
-from typing import List, Dict, Any, Optional
-from datetime import datetime
+from typing import Any, Optional
 
 
 @dataclass
@@ -33,7 +26,7 @@ class PageResult:
     crawled_at: datetime = field(default_factory=datetime.now)
     """When this page was crawled"""
 
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
     """Additional metadata about the page"""
 
     def __repr__(self) -> str:
@@ -51,7 +44,7 @@ class CrawlResult:
     source_url: str
     """The starting URL that was crawled"""
 
-    pages: List[PageResult]
+    pages: list[PageResult]
     """List of all successfully crawled pages"""
 
     success: bool
@@ -75,7 +68,7 @@ class CrawlResult:
     error_message: Optional[str] = None
     """Error message if crawl failed"""
 
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
     """Additional metadata about the crawl"""
 
     @property
@@ -91,7 +84,7 @@ class CrawlResult:
         )
 
     @property
-    def all_urls(self) -> List[str]:
+    def all_urls(self) -> list[str]:
         """
         Get list of all crawled URLs.
 

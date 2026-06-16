@@ -1,17 +1,15 @@
-"""Crawl4AI implementation - fixed for async generator results."""
-
 import asyncio
-from typing import Any, Optional, Callable
-from urllib.parse import ParseResult, urlparse
 from datetime import datetime
+from typing import Callable, Iterable, Optional
+from urllib.parse import ParseResult, urlparse
 
 from crawl4ai import AsyncWebCrawler, CrawlerRunConfig
 from crawl4ai.deep_crawling import BFSDeepCrawlStrategy
 from crawl4ai.deep_crawling.filters import FilterChain
 
+from web_intel.core.config import Config
 from web_intel.crawlers.base import BaseCrawler
 from web_intel.models.crawl_result import CrawlResult, PageResult
-from web_intel.core.config import Config
 from web_intel.utils.exceptions import CrawlerError
 
 
@@ -50,7 +48,7 @@ class Crawl4AICrawler(BaseCrawler):
         **options,
     ) -> CrawlResult:
         """Crawl a URL using Crawl4AI."""
-        start_time: datetime = datetime.now()
+        start_time = datetime.now()
 
         if not await self.validate_url(url):
             raise CrawlerError(f"Invalid URL: {url}")
@@ -69,7 +67,10 @@ class Crawl4AICrawler(BaseCrawler):
             async with AsyncWebCrawler(verbose=verbose) as crawler:
                 try:
                     results = await crawler.arun(url, config=crawler_config)
-                    
+
+                    if not isinstance(results, Iterable):
+                        raise CrawlerError("Crawl results are not iterable")
+
                     async def process_with_timeout() -> None:
                         nonlocal failed_count
                         idx = 0
@@ -140,7 +141,7 @@ class Crawl4AICrawler(BaseCrawler):
     def _extract_page_result(self, result) -> PageResult:
         """Extract PageResult from Crawl4AI result."""
         # Extract URL
-        url: Any | str = getattr(result, "url", "Unknown")
+        url = getattr(result, "url", "Unknown")
 
         # Extract content (prefer markdown)
         content = ""

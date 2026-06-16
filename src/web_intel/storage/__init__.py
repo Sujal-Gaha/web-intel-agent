@@ -1,6 +1,6 @@
-from .base import BaseStorage
-from .factory import StorageFactory
-from .file_storage import FileStorage
+from web_intel.storage.base import BaseStorage
+from web_intel.storage.factory import StorageFactory
+from web_intel.storage.file_storage import FileStorage
 
 __all__ = [
     "BaseStorage",

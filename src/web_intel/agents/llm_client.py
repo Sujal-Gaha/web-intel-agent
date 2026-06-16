@@ -1,12 +1,12 @@
 from abc import ABC, abstractmethod
-from typing import Any, AsyncIterator, Dict
+from typing import Any, AsyncIterator
 
 
 class BaseLLMClient(ABC):
     """Abstract base for all LLM providers."""
 
     @abstractmethod
-    async def generate(self) -> Dict[str, Any]:
+    async def generate(self) -> dict[str, Any]:
         """Non-streaming generation"""
 
     @abstractmethod
@@ -18,5 +18,5 @@ class BaseLLMClient(ABC):
         """Check if service is accessible"""
 
     @abstractmethod
-    def get_model_info(self) -> Dict[str, Any]:
+    def get_model_info(self) -> dict[str, Any]:
         """Get model information"""

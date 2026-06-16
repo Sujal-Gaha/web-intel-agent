@@ -1,11 +1,12 @@
 from contextlib import contextmanager
 from typing import Any, Generator
+
 from rich.progress import (
+    BarColumn,
     Progress,
     SpinnerColumn,
-    TextColumn,
-    BarColumn,
     TaskProgressColumn,
+    TextColumn,
 )
 
 

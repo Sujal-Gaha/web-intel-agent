@@ -1,9 +1,9 @@
-from .exceptions import (
-    WebIntelError,
-    CrawlerError,
+from web_intel.utils.exceptions import (
     AgentError,
+    CrawlerError,
     StorageError,
     ValidationError,
+    WebIntelError,
 )
 
 __all__ = [

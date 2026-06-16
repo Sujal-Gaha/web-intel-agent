@@ -1,7 +1,6 @@
-"""Base agent interface."""
-
 from abc import ABC, abstractmethod
 from typing import AsyncIterator
+
 from web_intel.models.query import QueryContext, QueryResult
 
 

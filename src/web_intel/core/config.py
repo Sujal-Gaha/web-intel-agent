@@ -1,9 +1,8 @@
-"""Configuration management using Pydantic."""
-
 from pathlib import Path
 from typing import Any, Optional
-from pydantic_settings import BaseSettings, SettingsConfigDict
+
 from pydantic import Field, field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Config(BaseSettings):
@@ -79,6 +78,7 @@ class Config(BaseSettings):
     )
 
     @field_validator("storage_path")
+    @classmethod
     def create_storage_path(cls, v: str) -> str:
         """Create storage directory if it doesn't exist."""
         path: Path = Path(v)
@@ -86,6 +86,7 @@ class Config(BaseSettings):
         return str(path.absolute())
 
     @field_validator("log_level")
+    @classmethod
     def validate_log_level(cls, v: str) -> str:
         """Validate log level."""
         valid_levels: list[str] = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]

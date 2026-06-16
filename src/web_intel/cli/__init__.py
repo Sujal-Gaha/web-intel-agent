@@ -1,3 +1,3 @@
-from .app import app
+from web_intel.cli.app import app
 
 __all__ = ["app"]

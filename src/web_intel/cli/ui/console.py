@@ -1,5 +1,3 @@
-"""Rich console wrapper."""
-
 from rich.console import Console
 from rich.theme import Theme
 

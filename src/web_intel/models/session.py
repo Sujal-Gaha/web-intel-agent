@@ -1,18 +1,18 @@
-"""Session management models."""
-
 from dataclasses import dataclass, field
-from typing import List, Dict, Any, Optional
 from datetime import datetime
+from typing import Any, Literal, Optional
+
+RoleLiteral = Literal["system", "user", "assistant"]
 
 
 @dataclass
 class Message:
     """A single message in a conversation."""
 
-    role: str  # 'user' or 'assistant'
+    role: RoleLiteral
     content: str
     timestamp: datetime = field(default_factory=datetime.now)
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -20,19 +20,19 @@ class Session:
     """Conversation session."""
 
     session_id: str
-    messages: List[Message] = field(default_factory=list)
+    messages: list[Message] = field(default_factory=list)
     context_source: Optional[str] = None  # Path to source content
     created_at: datetime = field(default_factory=datetime.now)
     updated_at: datetime = field(default_factory=datetime.now)
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
-    def add_message(self, role: str, content: str, **metadata) -> None:
+    def add_message(self, role: RoleLiteral, content: str, **metadata) -> None:
         """Add a message to the session."""
         message: Message = Message(role=role, content=content, metadata=metadata)
         self.messages.append(message)
         self.updated_at: datetime = datetime.now()
 
-    def get_recent_messages(self, n: int = 5) -> List[Dict[str, str]]:
+    def get_recent_messages(self, n: int = 5) -> list[dict[str, str]]:
         """
         Get recent messages formatted for context.
 
@@ -47,7 +47,7 @@ class Session:
         )
         return [{"role": msg.role, "content": msg.content} for msg in recent]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
             "session_id": self.session_id,
@@ -67,7 +67,7 @@ class Session:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "Session":
+    def from_dict(cls, data: dict[str, Any]) -> "Session":
         """Create Session from dictionary."""
         messages: list[Message] = [
             Message(

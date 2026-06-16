@@ -1,8 +1,9 @@
 """Unit tests for configuration."""
 
-import pytest
 import os
 from pathlib import Path
+
+import pytest
 
 from web_intel.core.config import Config
 

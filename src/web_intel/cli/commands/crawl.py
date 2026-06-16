@@ -1,8 +1,9 @@
+import asyncio
+from pathlib import Path
 from typing import Optional
+
 import typer
 from typer import Typer
-from pathlib import Path
-import asyncio
 
 from web_intel.cli.ui.console import console
 from web_intel.core.config import Config

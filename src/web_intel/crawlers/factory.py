@@ -1,11 +1,8 @@
-"""Crawler factory for creating crawler instances."""
+from typing import Callable, Optional
 
-from typing import Dict, Optional, Callable
-
+from web_intel.core.config import Config
 from web_intel.crawlers.base import BaseCrawler
 from web_intel.crawlers.crawl4ai import Crawl4AICrawler
-from web_intel.core.config import Config
-
 
 CrawlerConstructor = Callable[
     [Config, Optional[Callable[[str, int, int], None]]], BaseCrawler
@@ -15,7 +12,7 @@ CrawlerConstructor = Callable[
 class CrawlerFactory:
     """Factory for creating crawler instances."""
 
-    _crawlers: Dict[str, CrawlerConstructor] = {
+    _crawlers: dict[str, CrawlerConstructor] = {
         "crawl4ai": Crawl4AICrawler,
     }
 

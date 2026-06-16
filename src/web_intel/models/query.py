@@ -1,8 +1,6 @@
-"""Query-related data models."""
-
 from dataclasses import dataclass, field
-from typing import Dict, Any, Optional, List
 from datetime import datetime
+from typing import Any, Optional
 
 
 @dataclass
@@ -16,13 +14,13 @@ class QueryContext:
     content: str
     """The main content to analyze (crawled website, document, etc.)"""
 
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
     """Additional metadata about the query"""
 
     max_tokens: int = 20_000
     """Maximum tokens to use for context"""
 
-    conversation_history: List[Dict[str, str]] = field(default_factory=list)
+    conversation_history: list[dict[str, str]] = field(default_factory=list)
     """Previous messages in the conversation (for multi-turn dialogs)"""
 
     def __post_init__(self) -> None:
@@ -44,7 +42,7 @@ class QueryResult:
     response: str
     """The agent's response text"""
 
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
     """Additional metadata about the response"""
 
     model_used: str = "unknown"
@@ -64,7 +62,7 @@ class QueryResult:
         if not self.response:
             raise ValueError("Response cannot be empty")
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """
         Convert to dictionary for serialization.
 
@@ -81,7 +79,7 @@ class QueryResult:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "QueryResult":
+    def from_dict(cls, data: dict[str, Any]) -> "QueryResult":
         """
         Create QueryResult from dictionary.
 
